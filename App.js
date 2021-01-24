@@ -28,6 +28,7 @@ function SettingsStackScreen(){
   return (
 
     <Tabs.Navigator tabBarOptions={{
+      unmountOnBlur:true,
       activeBackgroundColor: "grey",
       activeTintColor: "black",
       tabStyle: {
@@ -42,21 +43,23 @@ function SettingsStackScreen(){
       }
     }}>
 
-      <Tabs.Screen name="Device" component={DeviceScreen} options={{ unmountOnBlur: true }} />
-      <Tabs.Screen name="Connection" component={ConnectionScreen} options={{ unmountOnBlur: true }} />
+      <Tabs.Screen name="Device" component={DeviceScreen} unmountOnBlur={true}  options={{ unmountOnBlur: true }} />
+      <Tabs.Screen name="Connection" component={ConnectionScreen} unmountOnBlur={true} options={{ unmountOnBlur: true }} />
     </Tabs.Navigator>
   );
 }
+
+
 const Tabs = createBottomTabNavigator();
 const App = () => {
   return (
     SettingsStackScreen(),
      <NavigationContainer>
-          <SettingsStack.Navigator initialRouteName={"Device"} screenOptions={{
+          <SettingsStack.Navigator unmountOnBlur={true} initialRouteName={"Device"} screenOptions={{
         headerShown: false
       }}>
-         <SettingsStack.Screen name="Device" component={SettingsStackScreen} />
-         <SettingsStack.Screen name="NewDeviceScreen" component={NewDeviceScreen}/>
+         <SettingsStack.Screen name="Device" component={SettingsStackScreen} unmountOnBlur={true} options={{ unmountOnBlur: true }}/>
+         <SettingsStack.Screen name="NewDeviceScreen" component={NewDeviceScreen} unmountOnBlur={true} options={{ unmountOnBlur: true }}/>
       </SettingsStack.Navigator>
     </NavigationContainer>
   );

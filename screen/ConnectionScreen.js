@@ -6,7 +6,8 @@ import {
     View,
     Text,
     StatusBar,
-    Button, TouchableOpacity
+    Button,
+    TouchableOpacity
 } from 'react-native';
 
 
@@ -25,12 +26,6 @@ export default class ConnectionScreen extends Component {
                 </View>
                 <ScrollView >
                     <View style={styles.scrol}>
-                        <Text style={{
-                            fontSize: 22,
-                            color: 'black'
-                        }}>
-                            h2
-                    </Text>
                     </View>
                 </ScrollView>
             </View>
