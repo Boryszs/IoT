@@ -65,7 +65,7 @@ export default class App extends Component {
 
   render() {
     return (
-    //  SettingsStackScreen(),
+      //  SettingsStackScreen(),
       <NavigationContainer>
         <SettingsStack.Navigator unmountOnBlur={true} initialRouteName={"Device"} screenOptions={{
           headerShown: false
