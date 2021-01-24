@@ -7,9 +7,10 @@ import {
     Text,
     TextInput,
     StatusBar,
-    TouchableOpacity,
+    TouchableOpacity
 } from 'react-native';
-
+import AsyncStorage from '@react-native-community/async-storage'
+import { CommonActions } from '@react-navigation/native';
 export default class NewDeviceScreen extends Component {
 
     constructor(props) {
@@ -18,7 +19,8 @@ export default class NewDeviceScreen extends Component {
             name: '',
             place: '',
             command: '',
-            color: ''
+            color: '',
+            items: []
         }
     }
 
@@ -31,7 +33,55 @@ export default class NewDeviceScreen extends Component {
     }
 
     handleCommand = (text) => {
-        this.setState({ place: text })
+        this.setState({ command: text })
+    }
+
+    handleColor = (text) => {
+        this.setState({ color: text })
+    }
+    _storeData = async () => {
+        try {
+
+            let obj = await AsyncStorage.getItem("Items")
+            console.log(obj);
+            if (obj !== null) {
+                this.setState({
+                    items: JSON.parse(obj)
+                })
+            } else {
+                this.setState({
+                    items: null
+                })
+            }
+        } catch (error) {
+
+        }
+    }
+
+
+    componentDidMount = async () => {
+        this._storeData()
+    }
+
+    _addItems = (item) => {
+        //console.log(item);
+        it = this.state.items;
+        //console.log(it);
+        if (it === null) {
+            it = [item];
+            //   console.log(it)
+            this.setState({
+                items: it
+            }, () => {
+                AsyncStorage.setItem("Items", JSON.stringify(this.state.items))
+            })
+        } else {
+            this.setState({
+                items: [...this.state.items, item],
+            }, () => {
+                AsyncStorage.setItem("Items", JSON.stringify(this.state.items))
+            })
+        }
     }
 
     render() {
@@ -64,18 +114,21 @@ export default class NewDeviceScreen extends Component {
                         underlineColorAndroid="transparent"
                         placeholderTextColor="grey"
                         autoCapitalize="none"
-                        onChangeText={this.handleCommand} />
+                        onChangeText={this.handleColor} />
                 </View>
                 <View style={styles.footer}>
                     <View style={styles.ButtonStyle}>
-                        <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.goBack()}>
-                             <Text style={styles.textButton}>Cancel</Text>
+                        <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.reset({
+                            index: 0,
+                            routes: [{ name: 'Device' }],
+                        })}>
+                            <Text style={styles.textButton}>Cancel</Text>
                         </TouchableOpacity>
                     </View>
-                    
+
                     <View style={styles.ButtonStyle}>
-                        <TouchableOpacity style={styles.button}>
-                        <Text style={styles.textButton}>Save</Text>
+                        <TouchableOpacity style={styles.button} onPress={() => this._addItems({ name: this.state.name, place: this.state.place, command: this.state.command })}>
+                            <Text style={styles.textButton}>Save</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -95,14 +148,14 @@ const styles = StyleSheet.create({
         minHeight: '10%',
         borderBottomColor: 'black',
         borderBottomWidth: 2,
-    },center: {
+    }, center: {
         minWidth: '100%',
         minHeight: '70%',
-    },footer: {
+    }, footer: {
         minWidth: '100%',
         minHeight: '20%',
-        flexDirection:'row',
-        flex:1,
+        flexDirection: 'row',
+        flex: 1,
     }, textHead: {
         fontSize: 42,
         fontWeight: 'bold',
@@ -123,19 +176,19 @@ const styles = StyleSheet.create({
         fontSize: 22,
         color: 'black'
     }, button: {
-        borderWidth:1,
-        borderColor:'black',
-        backgroundColor:'#C8C8C8',
-        margin:20,
-        width:140,
-        height:60,
+        borderWidth: 1,
+        borderColor: 'black',
+        backgroundColor: '#C8C8C8',
+        margin: 20,
+        width: 140,
+        height: 60,
         justifyContent: 'center',
-    },ButtonStyle:{
-        marginLeft:5,
-        width:'50%',
-        height:'20%',
-    },textButton:{
-        textAlign:'center',
-        fontSize:18,
+    }, ButtonStyle: {
+        marginLeft: 5,
+        width: '50%',
+        height: '20%',
+    }, textButton: {
+        textAlign: 'center',
+        fontSize: 18,
     }
 });
