@@ -51,20 +51,13 @@ export default class DeviceScreen extends Component {
     }
 
 
-    unmountChangeScreen() {
-        this.setState({ isMounted: false }, () => { this.props.navigation.navigate('NewDeviceScreen') })
-    }
-
     render() {
-        if (this.state.isMounted === false) {
-            this._storeData();
-        }
         return (
             <View style={styles.container}>
                 <View style={styles.head}>
                     <Text style={styles.textHead}>Devices</Text>
                 </View>
-                <ScrollView>
+                <ScrollView style={{ minHeight: '70%' }}>
                     <View style={styles.scrol}>
                         {(() => {
                             if (this.state.isMounted == true) {
@@ -74,7 +67,7 @@ export default class DeviceScreen extends Component {
                             }
                             return null
                         })()}
-                        <TouchableOpacity onPress={() => this.unmountChangeScreen()}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('NewDeviceScreen')}>
                             <View style={styles.boxStyle1}>
                                 <Image source={require('../assets/plus.png')} style={styles.imageStyle}></Image>
                             </View>
@@ -104,8 +97,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center'
     }, scrol: {
+        minHeight: '100%',
         flexDirection: 'row',
-        marginTop: 40,
+        marginTop: 30,
+        marginBottom: 45,
         flexWrap: 'wrap',
     }, boxStyle: {
         borderWidth: 1,

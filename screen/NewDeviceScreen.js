@@ -82,6 +82,11 @@ export default class NewDeviceScreen extends Component {
                 AsyncStorage.setItem("Items", JSON.stringify(this.state.items))
             })
         }
+
+        this.props.navigation.reset({
+            index: 0,
+            routes: [{ name: 'Device' }],
+        })
     }
 
     render() {
@@ -109,12 +114,15 @@ export default class NewDeviceScreen extends Component {
                         placeholderTextColor="grey"
                         autoCapitalize="none"
                         onChangeText={this.handleCommand} />
-                    <Text style={styles.text}>Color</Text>
+
+                    {/* //TOCO ADD SOME COLOR PICKER   */}
+
+                    {/* <Text style={styles.text}>Color</Text>
                     <TextInput style={styles.inputH}
                         underlineColorAndroid="transparent"
                         placeholderTextColor="grey"
                         autoCapitalize="none"
-                        onChangeText={this.handleColor} />
+                        onChangeText={this.handleColor} /> */}
                 </View>
                 <View style={styles.footer}>
                     <View style={styles.ButtonStyle}>
