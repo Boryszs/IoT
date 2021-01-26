@@ -50,6 +50,7 @@ export default class App extends Component {
           borderColor: 'black',
         }, labelStyle: {
           fontSize: 16,
+          fontFamily:'RobotoMono-Bold',
           color: 'black',
           textAlignVertical: 'center',
           flex: 1,
@@ -65,7 +66,6 @@ export default class App extends Component {
 
   render() {
     return (
-      //  SettingsStackScreen(),
       <NavigationContainer>
         <SettingsStack.Navigator unmountOnBlur={true} initialRouteName={"Device"} screenOptions={{
           headerShown: false

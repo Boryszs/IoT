@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 2
     }, textHead: {
         fontSize: 42,
-        fontWeight: 'bold',
+        fontFamily: 'PottaOne-Regular',
         textAlign: 'center'
     }, scrol: {
         minHeight: '100%',

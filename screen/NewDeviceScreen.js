@@ -43,7 +43,7 @@ export default class NewDeviceScreen extends Component {
         try {
 
             let obj = await AsyncStorage.getItem("Items")
-            console.log(obj);
+            //console.log(obj);
             if (obj !== null) {
                 this.setState({
                     items: JSON.parse(obj)
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
         flex: 1,
     }, textHead: {
         fontSize: 42,
-        fontWeight: 'bold',
+        fontFamily: 'PottaOne-Regular',
         textAlign: 'center'
     }, input: {
         margin: 15,
